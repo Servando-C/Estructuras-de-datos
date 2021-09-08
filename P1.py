@@ -1,26 +1,28 @@
-import math
-import random
-def BubleSort(arr):
-    
-    n = len(arr)
-    for i in range(n-1):
-        for j in range (n-1-i):
-            if arr[j] > arr[j+1]:
-            #intercambio
-             aux = arr[j]
-             arr[j] = arr[j+1]
-             arr[j+1] = aux
-            #arr[j], arr[j+1] = arr[j+1], arr[j] sugar sintact
+import math # se importa modulo math
+import random # se importa modulo random
 
-def BubleSort_Mejorado(arr):
-    n = len(arr)
-    b=1
-    p=0
-    while (p<n-1 and b==1):
+def BubleSort(arr): #metodo de ordenamiento BubleSort
+    
+    n = len(arr) # se obtiene la longitud del arreglo recibido
+    for i in range(n-1): # nos aseguramos de dar n-1 pasadas
+        for j in range (n-1-i): # 
+            if arr[j] > arr[j+1]: # si anterior es mayor que siguiente, cambio de posicion
+            # se reliza el intercambio si se cumplen las condiciones
+             #aux = arr[j]
+             #arr[j] = arr[j+1]
+             #arr[j+1] = aux
+             arr[j], arr[j+1] = arr[j+1], arr[j] #sugar syntax
+
+def BubleSort_Mejorado(arr): # metodo de ordenamiento BubleSort mejorado
+    n = len(arr) # se obtiene la longitud del arreglo recibido
+    b=1 # bandera que nos indica si hay cambios
+    p=0 # no de pasadas
+    while (p<(n-1) and b==1):
         b=0
         #for i in range(n-1):
         for j in range (n-p-1):
                 if arr[j] > arr[j+1]:
+                 b=1
                  #intercambio
                  aux = arr[j]
                  arr[j] = arr[j+1]
@@ -49,7 +51,7 @@ def Merge(arr, p, q, r):
             j += 1
 
 
-n = 1000
+n = 50
 a = []
 for i in range(n):
     a.append(random.randint(100,200))
