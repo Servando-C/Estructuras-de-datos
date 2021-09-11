@@ -17,10 +17,10 @@ def BubleSort_Mejorado(arr): # metodo de ordenamiento BubleSort mejorado
     n = len(arr) # se obtiene la longitud del arreglo recibido
     b=1 # bandera que nos indica si hay cambios
     p=0 # no de pasadas
-    while (p<(n-1) and b==1):
-        b=0
-        #for i in range(n-1):
-        for j in range (n-p-1):
+    while (p<(n-1) and b==1): # comprobamos que las pasadas sean menos que los elemntos del arreglo-1 y 
+        #                       el valor de la bandera sea el inicializado
+        b=0                   # cambiamos el valor de la bandera
+        for j in range (n-p-1): # a los elementos les restamos el numero de pasadas y a todo le restamos 1
                 if arr[j] > arr[j+1]:
                  b=1
                  #intercambio
