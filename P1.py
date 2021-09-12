@@ -46,7 +46,8 @@ def Merge(arr, p, q, r): # metodo para mezclar los areglos, recibe el arreglo, i
 
     for k in range(p, r+1): # el ciclo se va a repetir el mismo numero de veces que los elementos que tenga el arreglo original
         if(j >= r-q) or ((i < q-p+1) and (izq[i] < der[j])): # si ya han pasado todos los elementos del arreglo der o si no, 
-            #                                                  pero el elemento de la izquierda es menor al de la derecha agrega el elemento que contenga izq[i]
+            #                                                  pero el elemento de la izquierda es menor al de la derecha agrega
+            #                                                  el elemento que contenga izq[i]
             arr[k] = izq[i] # se agrega el elemento de izq[i] en la posicion k del arreglo original
             i += 1 # se aumenta el indice de izq[i] a comparar
         else:
@@ -71,17 +72,17 @@ print("Caso promedio (lista aleatoria)") # dependiendo de lo requerido se coment
 #print("Mejor caso (lista ordenada ascendente)")
 print("Con n =",n)
 
-#t1 = time.time() # toma de tiempo
-#BubbleSort(a1) # funcion a tomar tiempo
-#t2 = time.time() # toma de tiempo
-#tf = t2 - t1 # obtencion del tiempo requerido para la funcion
-#print("\nBubleSort: t = ",tf," s") # impresion de los resultados
+t1 = time.time() # toma de tiempo
+BubbleSort(a1) # funcion a tomar tiempo
+t2 = time.time() # toma de tiempo
+tf = t2 - t1 # obtencion del tiempo requerido para la funcion
+print("\nBubleSort: t = ",tf," s") # impresion de los resultados
 
-#t1 = time.time() # toma de tiempo
-#BubbleSort_Mejorado(a2) # funcion a tomar tiempo
-#t2 = time.time() # toma de tiempo
-#tf = t2 - t1 # obtencion del tiempo requerido para la funcion
-#print("\nBubleSort Mejorado: t = ",tf," s") # impresion de los resultados
+t1 = time.time() # toma de tiempo
+BubbleSort_Mejorado(a2) # funcion a tomar tiempo
+t2 = time.time() # toma de tiempo
+tf = t2 - t1 # obtencion del tiempo requerido para la funcion
+print("\nBubleSort Mejorado: t = ",tf," s") # impresion de los resultados
 
 t1 = time.time() # toma de tiempo
 MergeSort(a3, 0, len(a3)-1) # funcion a tomar tiempo
