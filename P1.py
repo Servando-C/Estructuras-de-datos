@@ -60,8 +60,8 @@ a = [] # a sera el arreglo generado
 for i in range(n): # ciclo para generar aleatoriamente los elementos de a
     a.append(random.randint(0,10)) # los datos estaran entre 0 y 10
 
-#a.sort(reverse=True) # se ordena la lista en orden descendente para el peor caso
-#MergeSort(a,0,len(a)-1) ordenar lista, para el mejor caso
+a.sort(reverse=True) # se ordena la lista en orden descendente para el peor caso
+#MergeSort(a,0,len(a)-1) # ordenar lista, para el mejor caso
 
 a1 = a[:] # se hacen tres copias del arreglo una para cada metodo
 a2 = a[:]
