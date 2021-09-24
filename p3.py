@@ -8,26 +8,30 @@ def RadixSort(A):
         A = CountingSortR(A, 10, i) #ordenamiento counting sort
     return A #retorna el arreglo ordenado
 
-def CountingSortR(A, b, i): 
-    k = b-1
-    C = [0]*(k+1)
+def RadixSort_Lex(A):
+    k = max(A)
+    print(k)
 
-    for j in range(len(A)):
+def CountingSortR(A, b, i): #counting sort hecho para radix
+    k = b-1 #arreglo de tamaño de la base
+    C = [0]*(k+1) #se llena el arreglo con ceros
+
+    for j in range(len(A)): #funcion para 
         v = A[j]
-        digito = math.floor(v / math.pow(b, i)) % b
-        C[digito] += 1
+        digito = math.floor(v / math.pow(b, i)) % b #obtiene el valor del ultimo digito
+        C[digito] += 1 #aumenta 1 en C en el indice igual al valor del digito
     
-    for j in range(1, len(C)):
-        C[j] = C[j] + C[j-1]
+    for j in range(1, len(C)): # suma de frecuencias
+        C[j] = C[j] + C[j-1] # suma el valor del arreglo con su elemento anterior
 
-    B = [0]*len(A)
-    for j in range(len(A)-1, -1, -1):
+    B = [0]*len(A) #arreglo que contendra el arreglo ordenado, inicializado en ceros
+    for j in range(len(A)-1, -1, -1): #se recorre el arreglo desde atras
         v = A[j]
-        digito = math.floor(v / math.pow(b, i)) % b
-        pos = C[digito]
+        digito = math.floor(v / math.pow(b, i)) % b # en estas lineas se toma el valor de A compara en que indice esta en C y 
+        pos = C[digito] # lo coloca en B en el indice proporcioando por C
         B[pos-1] = v
         C[digito] -= 1
-    return B
+    return B #retorna el arreglo ordenado
 
 def CountingSort(A):
     #para calcular el elemento mayor
@@ -35,24 +39,26 @@ def CountingSort(A):
 
     C = [0]*(k+1) #crea un arreglo lleno de 0 del tamaño del arreglo original
     for j in range(len(A)): #recorremos el arreglo el numero de elementos de A
-        v = A[j] 
-        C[v] += 1 #en el arreglo c
+        v = A[j] #se guarda temporalmente el valor del arreglo original
+        C[v] += 1 #se agrega 1 en el indice de C correspondiente al valor en A
     
-    for i in range(1, len(C)):
-        C[i] = C[i] + C[i-1]
+    for i in range(1, len(C)): #suma de frecuencias
+        C[i] = C[i] + C[i-1] # suma el valor del arreglo con su elemento anterior
 
-    B = [0]*len(A)
-    for j in range(len(A)-1, -1, -1):
-        B[C[A[j]]-1] = A[j]
-        C[A[j]] = C[A[j]]-1
-    return B
+    B = [0]*len(A) #arreglo que contendra el arreglo ordenado, inicializado en ceros
+    for j in range(len(A)-1, -1, -1): #se recorre el arreglo desde atras
+        B[C[A[j]]-1] = A[j] # en estas lineas se toma el valor de A compara en que indice esta en C y 
+        C[A[j]] = C[A[j]]-1 # lo coloca en B en el indice proporcioando por C
+    return B #retorna el arreglo ordenado
 
-n = 10
-arr = []
-for i in range(n):
-    arr.append(random.randint(0, 10))
+n = 10 #tamaño del arreglo
+arr = [] #declaracion del arreglo
+for i in range(n): #genera arreglo con numeros aleatorios de tamaño n
+    arr.append(random.randint(0, 10)) #genera numeros entre 0 y 10
+
+arr1 = ["Angel", "Servando", "Eli"]
 
 print("arr", arr)
-arr = RadixSort(arr)
+RadixSort_Lex(arr1)
 #arr = CountingSort(arr)
 print(arr)
