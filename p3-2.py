@@ -3,11 +3,11 @@ def RadixSort_Lex(A):
     k = max(A)
     d = len(k)
     for i in range(len(A)):
-        A[i] = str(A[i]).ljust(d, ' ')
+        A[i] = str(A[i]).ljust(d, ' ') # agrega espacios a la derecha de acuerdo al mayor elemento de A
     for i in range(d): #ordena una vuelta por cada letra
         A = CountingSortR_n(A, 255, i) #ordenamiento counting sort
     for i in range(len(A)):
-        A[i] = A[i].strip()
+        A[i] = A[i].strip() #quita espacios innecesarios
     return A
 
 def CountingSortR_n(A, b, i): #counting sort hecho para radix
