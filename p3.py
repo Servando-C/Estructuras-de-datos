@@ -23,9 +23,9 @@ def CountingSortR(A, b, i): #counting sort hecho para radix
 
     B = [0]*len(A) #arreglo que contendra el arreglo ordenado, inicializado en ceros
     for j in range(len(A)-1, -1, -1): #se recorre el arreglo desde atras
-        v = A[j]
-        digito = math.floor(v / math.pow(b, i)) % b # en estas lineas se toma el valor de A compara en que indice esta en C y 
-        pos = C[digito] # lo coloca en B en el indice proporcionado por C
+        v = A[j] #se guarda temporalmente el valor del arreglo original
+        digito = math.floor(v / math.pow(b, i)) % b # en estas lineas se toma el valor de A compara en que
+        pos = C[digito] #indice esta en C y lo coloca en B en el indice proporcionado por C
         B[pos-1] = v
         C[digito] -= 1 #disminuye 1 en la frecuencia
     return B #retorna el arreglo ordenado
@@ -72,7 +72,6 @@ t2 = time.time() # toma de tiempo
 tf = t2 - t1 # obtencion del tiempo requerido para la funcion
 print("\nRadixSort: t = ",tf,"s") # impresion de los resultados
 
-#n = 5000 #tamaño del arreglo
 arr = [] #declaracion del arreglo
 x = 18000 #valor maximo de los elemenos
 for i in range(n): #genera arreglo con numeros aleatorios de tamaño n
@@ -96,7 +95,6 @@ t2 = time.time() # toma de tiempo
 tf = t2 - t1 # obtencion del tiempo requerido para la funcion
 print("\nRadixSort: t = ",tf,"s") # impresion de los resultados
 
-#n = 5000 #tamaño del arreglo
 arr = [] #declaracion del arreglo
 x = 100 #valor maximo de los elemenos
 for i in range(n): #genera arreglo con numeros aleatorios de tamaño n
