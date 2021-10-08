@@ -20,6 +20,6 @@ a = []
 for i in range(n):
     a.append(random.randint(0,10))
 
-#print(a)
+print(a)
 QuickSort(a, 0, len(a)-1)
-#print(a)
+print(a)
