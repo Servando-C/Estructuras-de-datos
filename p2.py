@@ -72,7 +72,7 @@ arr2 = a[:]
 
 print("Peor caso\n")
 
-arr.sort(reverse=True)
+arr.sort(reverse=True)#ordenamiento del arreglo inversamente
 arr1_1 = arr[:]
 arr1_2 = arr[:]
 arr1_3 = arr[:]
@@ -121,7 +121,7 @@ print("\nHeap Sort: t = ",tf,"s") # impresion de los resultados
 
 print("\nMejor caso")
 
-arr2.sort()
+arr2.sort()# ordenamiento del arreglo
 arr3_1 = arr2[:]
 arr3_2 = arr2[:]
 arr3_3 = arr2[:]
