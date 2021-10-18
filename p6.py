@@ -5,12 +5,12 @@ class Nodo():
 		self.vecinos = []
 
 	def agregarVecino(self, nodo):
-		delf.vecinos.append(nodo)
+		self.vecinos.append(nodo)
 
 class Grafo():
 
 	def __init__(self):
-		slf.vertices = {}
+		self.vertices = {}
 
 	def agregarVertice(self, nombreNodo):
 		nuevoNodo = Nodo(nombreNodo)

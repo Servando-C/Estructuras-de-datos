@@ -1,24 +1,23 @@
 from Database_12K import Usuario
 import collections
 
-n = 1000
+n = 10
 uBase = Usuario.GetUsuariosDB(n)
 
 def CrearTablaHash(m):
     t = [None]*m
-    for i in range(m):
-        t[i] = list()
+    return t
 
 def CalcularHash(cadena, m, i):
     sum = 0
     for i in range(len(cadena)):
-        sum += (i +1)*ord(cadena[i])
+        sum += (i+1)*ord(cadena[i])
 
     hash = (sum + i) % m #hash por metodo de division
     return hash
 
 def Agregar(t, key, valor):
-    m = len(t)
+    m = len(key)
     i = 0 # sondeo lineal
     while i < m: #calcular hash de la llave
         hash = CalcularHash(key, m, i)
@@ -32,7 +31,7 @@ def Agregar(t, key, valor):
 
 def Buscar(t, key):
     m = len(t)
-    i 0 
+    i = 0 
     while i< m:
         if t[hash] == key:
             return CalcularHash
@@ -42,8 +41,9 @@ def Buscar(t, key):
             i += 1
     return None
 
-m = 10
-T = CrearTablaHash(m)
+T = CrearTablaHash(n)
 
 for i in range(n):
     Agregar(T, uBase[i].username, uBase[i])
+
+Buscar(T, "race1")
