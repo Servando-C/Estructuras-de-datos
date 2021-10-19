@@ -27,8 +27,7 @@ n = 100
 uBase = Usuario.GetUsuariosDB(n)
 
 def CrearTablaHash(m):
-    a = []
-    t = [a]*m
+    t = linkList*m
     return t
 
 def CalcularHash(cadena, m, i):
