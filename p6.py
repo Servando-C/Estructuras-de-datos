@@ -1,32 +1,32 @@
-class Nodo():
+class Nodo():#clase nodo, contiene nodos que conforman el grafo
 
-	def __init__(self, nombre):#clase nodo
+	def __init__(self, nombre):#constructor de nodo
 		self.nombre = nombre #atributos del nodo
 		self.vecinos = []
 		self.color = "blanco"
 		self.distancia = -1
 		self.padre = None 
 
-	def agregarVecino(self, nodo):
-		for v in self.vecinos:
-			if v.nombre == nodo.nombre:
+	def agregarVecino(self, nodo):#metodo para agregar nodos
+		for v in self.vecinos:#recorrer vecinos
+			if v.nombre == nodo.nombre:#si un vecino coincide con el nombre de otro, indica que ya existe uno
 				print("Ya existe el vecino "+nodo.nombre+" en el nodo "+self.nombre)
 				return
-		self.vecinos.append(nodo)
+		self.vecinos.append(nodo)#agrega el vecino
 
-	def __str__(self):
+	def __str__(self):#metodo que da nombre
 		return self.nombre
 
-	def __repr__(self) -> str:
+	def __repr__(self) -> str:#metodo que genera la representacion
 		return self.nombre
 
 
-class Grafo():
+class Grafo():#clase grafo
 
-	def __init__(self):
-		self.vertices = {}
+	def __init__(self):#constructor del grafo
+		self.vertices = {}#almacena los vertices
 
-	def agregarVertice(self, nombreNodo):
+	def agregarVertice(self, nombreNodo):#clase agregar vertices al grafo
 		for v in self.vertices:
 			if v == nombreNodo:
 				print("Ya existe el vertice "+nombreNodo)
