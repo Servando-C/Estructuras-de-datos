@@ -22,7 +22,6 @@ class Nodo():#clase nodo, contiene nodos que conforman el grafo
 	def __repr__(self) -> str:#metodo que genera la representacion
 		return self.nombre
 
-
 class Grafo():#clase grafo
 
 	def __init__(self):#constructor del grafo
@@ -46,7 +45,7 @@ class Grafo():#clase grafo
 		if nombreNodo2 in self.vertices:#verifica si el nodo existe en el grafo
 			nodo2 = self.vertices[nombreNodo2]#agregar vertice
 		else:
-			print("No existe nodo con nombre ",+nombreNodo2)#si no existe el nodo imprime un error
+			print("No existe nodo con nombre "+nombreNodo2)#si no existe el nodo imprime un error
 			return
 
 		nodo1 = self.vertices[nombreNodo1]#nombra los vertices del nodo
@@ -77,7 +76,51 @@ class Grafo():#clase grafo
 					v.padre = u
 					q.append(v) #tenia cola
 			u.color = "negro"#indica que han sido revisados todos los vecinos
+
+	def EncontrarCaminoBFS(self, nombreNi, nombreNf):#metodo buscar camino mas corto
+		for u in self.vertices.values():#dejar los vertices en blanco 
+			u.color = "blanco"# lo que indica que no han sido visitados
+			u.distancia = -1
+			u.padre = None
+
+		self.vertices[nombreNi].color = "gris"#visitando el nodo recibido
+		self.vertices[nombreNi].distancia = 0
+		self.vertices[nombreNi].padre = None#marcado como visitado
+
+		q = [] #cola
+		q.append(self.vertices[nombreNi]) #encolar
+
+		while len(q) > 0:#ciclo para visitar cada uno de los vecinos de los nodos del grafo
+			u = q.pop(0)#desencolar
+			for v in u.vecinos:#recorrer los vecinos del nodo
+				if v.color == "blanco":#si no ha sido visitado entra al ciclo
+					v.color = "gris"
+					v.distancia = u.distancia + 1
+					v.padre = u
+					q.append(v) #tenia cola
+			u.color = "negro"#indica que han sido revisados todos los vecinos
+		u = self.vertices
+		est = []
+		est.append(nombreNf)
+		#est.insert(u[nombreNf].distancia+1, nombreNf)
+		#i = u[nombreNf].distancia
+		for j in est:
+			if u[j].padre == None:
+				break
+			else:
+				est.append(u[j].padre.nombre)
+		imprimirBFS(est)
 	
+	def dfs(self, nombreNi, nombreNf):
+		for u in self.vertices:
+			u.color = "Blanco"
+			u.padre = None
+		for u in self.vertices[nombreNi].vecinos:
+			if u.color == "Blanco":
+				self.dfsVisitar(u)
+	
+	def dfsVisitar(self, ):
+
 	def __str__(self):#metodo que da nombre para identificar los nodos e imprimir
 		s = ''
 		for v in self.vertices:#identifica a los nombres con su atributo nombre
@@ -97,22 +140,21 @@ class Grafo():#clase grafo
 		for v in self.vertices:#representando al vertice cosu atributo nombre
 			s += self.vertices[v].nombre + ", "
 		return s
-
-print("\n-----\nLinea 1\n")
-print(metro.linea1[0])
-
-"""print("\n-----\nTodas las lineas\n")
-print(metro.lineas)"""
-c=1
+def imprimirBFS(est):
+	print("Numero de estaciones: ",len(est))
+	for i in reversed(est):
+		if est[0] == i:
+			print(i)
+		else: 
+			print(i+"->", end=" ")
 g = Grafo()
 for u in metro.lineas:
-    i = len(u)
-    for j in range(i):
-        g.agregarVertice(u[j])#print(u[j])
-        if j == i:
-            break
-        else:
-            g.agregarArista(u[j],u[j+1])
+	i = len(u)
+	for j in range(i):
+		g.agregarVertice(u[j])#print(u[j])
+for u in metro.lineas:
+	i = len(u)
+	for k in range(i-1):
+		g.agregarArista(u[k],u[k+1])
 
-print("hecho")
-g.agregarArista('1','2')
+g.EncontrarCaminoBFS("Indios Verdes","Misterios")
