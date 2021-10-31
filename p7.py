@@ -113,13 +113,23 @@ class Grafo():#clase grafo
 	
 	def dfs(self, nombreNi, nombreNf):
 		for u in self.vertices:
-			u.color = "Blanco"
+			u.color = "blanco"
 			u.padre = None
-		for u in self.vertices[nombreNi].vecinos:
-			if u.color == "Blanco":
+		for u in self.vertices:
+			if u.color == "blanco":
 				self.dfsVisitar(u)
 	
-	def dfsVisitar(self, ):
+	def dfsVisitar(self, u):
+		#t = t+1
+		#u.distancia = t
+		u.color = 'gris'
+		for i in u.vecinos:
+			if i.color == 'blanco':
+				i.padre = u
+				self.dfsVisitar(i)
+		u.color = 'negro'
+		#t = t+1
+
 
 	def __str__(self):#metodo que da nombre para identificar los nodos e imprimir
 		s = ''
