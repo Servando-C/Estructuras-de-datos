@@ -1,4 +1,4 @@
-import metro
+import metro#utilizacion del codigo que contiene las lineas del metro
 
 class Nodo():#clase nodo, contiene nodos que conforman el grafo
 
@@ -29,8 +29,8 @@ class Grafo():#clase grafo
 
 	def agregarVertice(self, nombreNodo):#clase agregar vertices al grafo
 		for v in self.vertices:#recorrer los vertices
-			if v == nombreNodo:#si se encuentra imprime que ya hay un vertice
-				print("Ya existe el vertice "+nombreNodo)
+			if v == nombreNodo:#si se encuentra ya no agrega nada
+				break
 		nuevoNodo = Nodo(nombreNodo)#nuevo nodo
 		self.vertices[nombreNodo] = nuevoNodo#agregar vertice al grafo
 
@@ -54,30 +54,7 @@ class Grafo():#clase grafo
 		nodo1.agregarVecino(nodo2)#agrega vecinos de ambas partes
 		nodo2.agregarVecino(nodo1)
 
-	def bfs(self, nombreNodo):#metodo de busqueda por expansion
-		for u in self.vertices.values():#dejar los vertices en blanco 
-			u.color = "blanco"# lo que indica que no han sido visitados
-			u.distancia = -1
-			u.padre = None
-
-		self.vertices[nombreNodo].color = "gris"#visitando el nodo recibido
-		self.vertices[nombreNodo].distancia = 0
-		self.vertices[nombreNodo].padre = None#marcado como visitado
-
-		q = [] #cola
-		q.append(self.vertices[nombreNodo]) #encolar
-
-		while len(q) > 0:#ciclo para visitar cada uno de los vecinos de los nodos del grafo
-			u = q.pop(0)#desencolar
-			for v in u.vecinos:#recorrer los vecinos del nodo
-				if v.color == "blanco":#si no ha sido visitado entra al ciclo
-					v.color = "gris"
-					v.distancia = u.distancia + 1
-					v.padre = u
-					q.append(v) #tenia cola
-			u.color = "negro"#indica que han sido revisados todos los vecinos
-
-	def EncontrarCaminoBFS(self, nombreNi, nombreNf):#metodo buscar camino mas corto
+	def bfs(self, nombreNi):#metodo buscar camino mas corto
 		for u in self.vertices.values():#dejar los vertices en blanco 
 			u.color = "blanco"# lo que indica que no han sido visitados
 			u.distancia = -1
@@ -99,37 +76,45 @@ class Grafo():#clase grafo
 					v.padre = u
 					q.append(v) #tenia cola
 			u.color = "negro"#indica que han sido revisados todos los vecinos
-		u = self.vertices
-		est = []
-		est.append(nombreNf)
-		#est.insert(u[nombreNf].distancia+1, nombreNf)
-		#i = u[nombreNf].distancia
-		for j in est:
-			if u[j].padre == None:
+	
+	def imprimirRutaBFS(self, nombreNi, nombreNf):#metodo imprimir ruta usando BFS
+		self.bfs(nombreNi)#utilizar metodo bfs
+		u = self.vertices#igualar a u para iterar sobre los vertices
+		est = []#lista para guardar estaciones de la ruta
+		est.append(nombreNf)#agregar la estacion final
+		for j in est:#iterar sobre los padres de los elementos de la ruta
+			if u[j].padre == None:#se detiene si el padre del vertice no existe
 				break
 			else:
-				est.append(u[j].padre.nombre)
-		imprimirBFS(est)
-	
-	def dfs(self, nombreNi, nombreNf):
-		for u in self.vertices:
+				est.append(u[j].padre.nombre)#agregar el padre a la lista de estaciones
+		imprimir(est)#llama al metodo para imprimir las estaciones
+
+	def dfs(self, nombreNi):#metodo dfs
+		for u in self.vertices.values():#iterar sobre los vertices y dejarlos como no visitados
 			u.color = "blanco"
 			u.padre = None
-		for u in self.vertices:
-			if u.color == "blanco":
-				self.dfsVisitar(u)
+		nombreNi = self.vertices[nombreNi]#tomar el nodo inicial
+		self.dfsVisitar(nombreNi)#metodo para visitar vecinos del nodo inicial
 	
-	def dfsVisitar(self, u):
-		#t = t+1
-		#u.distancia = t
-		u.color = 'gris'
-		for i in u.vecinos:
-			if i.color == 'blanco':
-				i.padre = u
-				self.dfsVisitar(i)
-		u.color = 'negro'
-		#t = t+1
+	def dfsVisitar(self, u):#metodo para visitar vertices
+		u.color = 'gris'#marcar como visitado
+		for i in u.vecinos:#iterar sobre los vecinos del nodo inicial
+			if i.color == 'blanco':#si no se ha visitado
+				i.padre = u#hacer predecesor al vertice ingresado
+				self.dfsVisitar(i)#visitar el vertice actual
+		u.color = 'negro'#marcar como visitado y todos sus vecinos visitados
 
+	def imprimirRutaDFS(self, nombreNi, nombreNf):#metodo imprimir ruta usando DFS
+		self.dfs(nombreNi)#utilizar metodo DFS
+		u = self.vertices#igualar a u para iterar sobre los vertices
+		est = []#lista para guardar estaciones de la ruta
+		est.append(nombreNf)#agregar la estacion final
+		for j in est:#iterar sobre los padres de los elementos de la ruta
+			if u[j].padre == None:#se detiene si el padre del vertice no existe
+				break
+			else:
+				est.append(u[j].padre.nombre)#agregar el padre a la lista de estaciones
+		imprimir(est)#llama al metodo para imprimir las estaciones
 
 	def __str__(self):#metodo que da nombre para identificar los nodos e imprimir
 		s = ''
@@ -150,21 +135,34 @@ class Grafo():#clase grafo
 		for v in self.vertices:#representando al vertice cosu atributo nombre
 			s += self.vertices[v].nombre + ", "
 		return s
-def imprimirBFS(est):
-	print("Numero de estaciones: ",len(est))
-	for i in reversed(est):
-		if est[0] == i:
+		
+def imprimir(est):#metodo para imprimir las listas de estaciones
+	print("\nDe",est[len(est)-1], "a",est[0])#mensaje de estaciones inicio y final
+	print("\nNumero de estaciones: ",len(est))#imprimir numero de estaciones
+	for i in reversed(est):#iterar en la lista de reversa
+		if est[0] == i:#incluye una impresion para cuando se refiera al ultimo elemento 
 			print(i)
-		else: 
-			print(i+"->", end=" ")
-g = Grafo()
-for u in metro.lineas:
-	i = len(u)
-	for j in range(i):
-		g.agregarVertice(u[j])#print(u[j])
-for u in metro.lineas:
-	i = len(u)
-	for k in range(i-1):
-		g.agregarArista(u[k],u[k+1])
+		else:
+			print(i+" ->", end=" ")#si es un elemento intermedio imprime una flecha entre las estaciones
 
-g.EncontrarCaminoBFS("Indios Verdes","Misterios")
+g = Grafo()#generar un nuevo grafo
+for u in metro.lineas:#iterar sobre las lineas del metro
+	i = len(u)#longiud de la linea actual
+	for j in range(i):#iterar lineas mientras este en el numero de estaciones
+		g.agregarVertice(u[j])#agregar estacion
+for u in metro.lineas:#iterar entre las lineas del metro
+	i = len(u)#longiud de la linea actual
+	for k in range(i-1):#toma hasta la penultima estacion ligada a la ultima
+		g.agregarArista(u[k],u[k+1])#agregar aristas entre la estacion y la siguiente
+print("\nBFS:")
+g.imprimirRutaBFS("Aquiles Serdán","Iztapalapa")#imprimir la ruta entre las estaciones usando bfs
+print("\nDFS:")
+g.imprimirRutaDFS("Aquiles Serdán","Iztapalapa")#imprimir la ruta entre las estaciones usando dfs
+print("\nBFS:")
+g.imprimirRutaBFS("San Antonio","Aragón")
+print("\nDFS:")
+g.imprimirRutaDFS("San Antonio","Aragón")
+print("\nBFS:")
+g.imprimirRutaBFS("Vallejo","Insurgentes")
+print("\nDFS:")
+g.imprimirRutaDFS("Vallejo","Insurgentes")
